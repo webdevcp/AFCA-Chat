@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Conversation {
     public Boolean isGroup;
     public ArrayList<Person> members;
@@ -5,7 +7,14 @@ public class Conversation {
 
     private String encryptKey;
 
+    // send message to conversation
+    Boolean send(Message message){
 
+
+        return true;
+    }
 
     
+
+
 }
