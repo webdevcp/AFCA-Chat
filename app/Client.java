@@ -1,10 +1,8 @@
+// With help from http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/
 import java.net.*;
 import java.io.*;
 import java.util.*;
 
-/*
- * The Client that can be run both as a console or a GUI
- */
 public class Client{
 
 	// for I/O
@@ -17,17 +15,11 @@ public class Client{
 	private String server, username;
 	private int port;
 
-	/*
-	 * Constructor call when used from a GUI
-	 * in console mode the ClienGUI parameter is null
-	 */
+	// Constructor
 	Client(String server, int port, String username) {
 		this.server = server;
 		this.port = port;
 		this.username = username;
-		// save if we are in GUI mode or not
-
-		//todo: actually do
 		this.person = new Person();
 	}
 
@@ -39,7 +31,7 @@ public class Client{
 		try {
 			socket = new Socket(server, port);
 		}
-		// if it failed not much I can so
+		// if it failed not much I can do
 		catch(Exception ec) {
 			display("Error connectiong to server:" + ec);
 			return false;
@@ -114,24 +106,7 @@ public class Client{
 		catch(Exception e) {} // not much else I can do
 
 	}
-	/*
-	 * To start the Client in console mode use one of the following command
-	 * > java Client
-	 * > java Client username
-	 * > java Client username portNumber
-	 * > java Client username portNumber serverAddress
-	 * at the console prompt
-	 * If the portNumber is not specified 1500 is used
-	 * If the serverAddress is not specified "localHost" is used
-	 * If the username is not specified "Anonymous" is used
-	 * > java Client
-	 * is equivalent to
-	 * > java Client Anonymous 1500 localhost
-	 * are eqquivalent
-	 *
-	 * In console mode, if an error occurs the program simply stops
-	 * when a GUI id used, the GUI is informed of the disconnection
-	 */
+
 	public static void main(String[] args) {
 		// default values
 		int portNumber = 1500;
