@@ -1,4 +1,6 @@
-public class TextMessage extends Message {
+import java.io.*;
+
+public class TextMessage extends Message implements Serializable {
     private String content;
 
 //    public void TextMessage(Person sendPerson, Object content) {

@@ -1,4 +1,7 @@
-public class Person {
+import java.io.*;
+
+
+public class Person implements Serializable{
     public String email;
     public String username;
     public String hashedPassword;
