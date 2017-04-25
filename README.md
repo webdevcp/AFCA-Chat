@@ -9,6 +9,12 @@
 ### Description: 
 A simple chat application with a desktop interface which allows for text and multimedia communication with a goal for decentralized end-to-end messages. Once delivered, encrypted messages are deleted from central server.
 
+### How to build and deploy:
+to build: javac *.java
+to deploy:
+	to deploy the server run "Java Server"
+	to run as a client run "Java Client"
+
 ### Actors: 
 * Admin
 * users 
