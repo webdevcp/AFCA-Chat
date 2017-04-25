@@ -1,4 +1,6 @@
-public class BehindTheScenesMessage extends Message {
+import java.io.*;
+
+public class BehindTheScenesMessage extends Message implements Serializable {
     public static int WHOISHERE = 0, LOGIN = 1, LOGOUT = 2, READRECEIPT = 3;
     private int type;
     private String content;

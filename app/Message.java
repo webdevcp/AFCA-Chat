@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-public abstract class Message {
+public abstract class Message implements Serializable {
     public static int NOTSENT = 0, SENTNOTRECEIVED = 1, RECEIVEDNOTREAD = 2, READ = 3;
     protected Person sender;
     protected List receivers = new ArrayList();
