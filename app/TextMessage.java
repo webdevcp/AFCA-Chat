@@ -7,7 +7,7 @@ public class TextMessage extends Message {
 //        status = NOTSENT;
 //    }
 
-    public void TextMessage(Person sendPerson, String content) {
+    TextMessage(Person sendPerson, String content) {
         sender = sendPerson;
         this.content = content;
         status = NOTSENT;

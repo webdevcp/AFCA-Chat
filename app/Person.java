@@ -3,11 +3,11 @@ public class Person {
     public String username;
     public String hashedPassword;
 
-    public Person(String name){
+    Person(String name){
         this.username = name;
     }
 
-    public Person(){
+    Person(){
         this("Anon");
     }
 

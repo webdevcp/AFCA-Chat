@@ -3,13 +3,13 @@ public class BehindTheScenesMessage extends Message {
     private int type;
     private String content;
 
-    public void BehindTheScenesMessage(Person sendPerson, Object content) {
+    BehindTheScenesMessage(Person sendPerson, Object content) {
         sender = sendPerson;
         this.content = (String) content;
         status = NOTSENT;
     }
 
-    public void BehindTheScenesMessage(Person sendPerson, Object content, int type) {
+    BehindTheScenesMessage(Person sendPerson, Object content, int type) {
         sender = sendPerson;
         this.content = (String) content;
         status = NOTSENT;
