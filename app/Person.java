@@ -8,4 +8,6 @@ public class Bot extends Person {
     public String APIKey;
 }
 
-public class Admin extends Person {}
+public class Admin extends Person {
+    
+}
