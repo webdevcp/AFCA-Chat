@@ -14,3 +14,9 @@ hs_err_pid*
 .DS_Store
 .metadata/
 bin/
+
+*.iml
+
+app/\.idea/
+
+app/\.project

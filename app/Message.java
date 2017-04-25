@@ -1,7 +1,35 @@
-
+import java.util.*;
 
 public class Message {
-    public Boolean isReceived;
-    public Boolean isRead;
-    public Person sender;
+    public static int NOTSENT = 0, SENTNOTRECEIVED = 1, RECEIVEDNOTREAD = 2, READ = 3;
+    protected Person sender;
+    protected List receivers = new ArrayList();
+    protected Object content;
+    protected int status;
+
+    public void Message(Person sendPerson, Object content) {
+        sender = sendPerson;
+        this.content = content;
+        status = NOTSENT;
+    }
+
+
+    //getters
+    public Person getSender() {
+        return sender;
+    }
+
+    public Object getContent() {
+        return content;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    //setters
+    public void setStatus(int newStatus) {
+        status = newStatus;
+    }
 }
+
