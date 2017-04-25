@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Message {
+public abstract class Message {
     public static int NOTSENT = 0, SENTNOTRECEIVED = 1, RECEIVEDNOTREAD = 2, READ = 3;
     protected Person sender;
     protected List receivers = new ArrayList();

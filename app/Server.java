@@ -12,26 +12,16 @@ public class Server {
 	// an ArrayList to keep the list of the Client
 	private ArrayList<ClientThread> al;
 	// if I am in a GUI
-	private ServerGUI sg;
 	// to display time
 	private SimpleDateFormat sdf;
 	// the port number to listen for connection
 	private int port;
 	// the boolean that will be turned of to stop the server
 	private boolean keepGoing;
-	
 
-	/*
-	 *  server constructor that receive the port to listen to for connection as parameter
-	 *  in console
-	 */
-	public Server(int port) {
-		this(port, null);
-	}
 	
-	public Server(int port, ServerGUI sg) {
+	public Server(int port) {
 		// GUI or not
-		this.sg = sg;
 		// the port
 		this.port = port;
 		// to display hh:mm:ss
@@ -106,10 +96,7 @@ public class Server {
 	 */
 	private void display(String msg) {
 		String time = sdf.format(new Date()) + " " + msg;
-		if(sg == null)
 			System.out.println(time);
-		else
-			sg.appendEvent(time + "\n");
 	}
 	/*
 	 *  to broadcast a message to all Clients
@@ -119,10 +106,7 @@ public class Server {
 		String time = sdf.format(new Date());
 		String messageLf = time + " " + message + "\n";
 		// display message on console or GUI
-		if(sg == null)
 			System.out.print(messageLf);
-		else
-			sg.appendRoom(messageLf);     // append in the room window
 		
 		// we loop in reverse order in case we would have to remove a Client
 		// because it has disconnected
