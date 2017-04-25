@@ -14,7 +14,7 @@ public class Client  {
 
 	// if I use a GUI or not
 	private ClientGUI cg;
-	
+
 	// the server, the port and the username
 	private String server, username;
 	private int port;
@@ -41,7 +41,7 @@ public class Client  {
 		// save if we are in GUI mode or not
 		this.cg = cg;
 	}
-	
+
 	/*
 	 * To start the dialog
 	 */
@@ -49,16 +49,16 @@ public class Client  {
 		// try to connect to the server
 		try {
 			socket = new Socket(server, port);
-		} 
+		}
 		// if it failed not much I can so
 		catch(Exception ec) {
 			display("Error connectiong to server:" + ec);
 			return false;
 		}
-		
+
 		String msg = "Connection accepted " + socket.getInetAddress() + ":" + socket.getPort();
 		display(msg);
-	
+
 		/* Creating both Data Stream */
 		try
 		{
@@ -70,10 +70,10 @@ public class Client  {
 			return false;
 		}
 
-		// creates the Thread to listen from the server 
+		// creates the Thread to listen from the server
 		new ListenFromServer().start();
 		// Send our username to the server this is the only message that we
-		// will send as a String. All other messages will be ChatMessage objects
+		// will send as a String. All other messages will be Message objects
 		try
 		{
 			sOutput.writeObject(username);
@@ -96,11 +96,11 @@ public class Client  {
 		else
 			cg.append(msg + "\n");		// append to the ClientGUI JTextArea (or whatever)
 	}
-	
+
 	/*
 	 * To send a message to the server
 	 */
-	void sendMessage(ChatMessage msg) {
+	void sendMessage(Message msg) {
 		try {
 			sOutput.writeObject(msg);
 		}
@@ -114,7 +114,7 @@ public class Client  {
 	 * Close the Input/Output streams and disconnect not much to do in the catch clause
 	 */
 	private void disconnect() {
-		try { 
+		try {
 			if(sInput != null) sInput.close();
 		}
 		catch(Exception e) {} // not much else I can do
@@ -126,11 +126,11 @@ public class Client  {
 			if(socket != null) socket.close();
 		}
 		catch(Exception e) {} // not much else I can do
-		
+
 		// inform the GUI
 		if(cg != null)
 			cg.connectionFailed();
-			
+
 	}
 	/*
 	 * To start the Client in console mode use one of the following command
@@ -142,11 +142,11 @@ public class Client  {
 	 * If the portNumber is not specified 1500 is used
 	 * If the serverAddress is not specified "localHost" is used
 	 * If the username is not specified "Anonymous" is used
-	 * > java Client 
+	 * > java Client
 	 * is equivalent to
-	 * > java Client Anonymous 1500 localhost 
+	 * > java Client Anonymous 1500 localhost
 	 * are eqquivalent
-	 * 
+	 *
 	 * In console mode, if an error occurs the program simply stops
 	 * when a GUI id used, the GUI is informed of the disconnection
 	 */
@@ -172,7 +172,7 @@ public class Client  {
 					return;
 				}
 			// > javac Client username
-			case 1: 
+			case 1:
 				userName = args[0];
 			// > java Client
 			case 0:
@@ -188,7 +188,7 @@ public class Client  {
 		// if it failed nothing we can do
 		if(!client.start())
 			return;
-		
+
 		// wait for messages from user
 		Scanner scan = new Scanner(System.in);
 		// loop forever for message from the user
@@ -198,20 +198,20 @@ public class Client  {
 			String msg = scan.nextLine();
 			// logout if message is LOGOUT
 			if(msg.equalsIgnoreCase("LOGOUT")) {
-				client.sendMessage(new ChatMessage(ChatMessage.LOGOUT, ""));
+				client.sendMessage(new Message(Message.LOGOUT, ""));
 				// break to do the disconnect
 				break;
 			}
 			// message WhoIsIn
 			else if(msg.equalsIgnoreCase("WHOISIN")) {
-				client.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));				
+				client.sendMessage(new Message(Message.WHOISIN, ""));
 			}
 			else {				// default to ordinary message
-				client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
+				client.sendMessage(new Message(Message.MESSAGE, msg));
 			}
 		}
 		// done disconnect
-		client.disconnect();	
+		client.disconnect();
 	}
 
 	/*
@@ -235,7 +235,7 @@ public class Client  {
 				}
 				catch(IOException e) {
 					display("Server has close the connection: " + e);
-					if(cg != null) 
+					if(cg != null)
 						cg.connectionFailed();
 					break;
 				}
