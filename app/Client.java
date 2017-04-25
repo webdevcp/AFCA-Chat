@@ -164,15 +164,21 @@ public class Client{
 				System.out.println("Usage is: > java Client [username] [portNumber] {serverAddress]");
 			return;
 		}
+		// wait for messages from user
+		Scanner scan = new Scanner(System.in);
+		System.out.print("What is your name: ");
+		String newName = scan.nextLine();
+
+
 		// create the Client object
-		Client client = new Client(serverAddress, portNumber, userName);
+		Client client = new Client(serverAddress, portNumber, newName);
 		// test if we can start the connection to the Server
 		// if it failed nothing we can do
 		if(!client.start())
 			return;
 
-		// wait for messages from user
-		Scanner scan = new Scanner(System.in);
+			
+
 		// loop forever for message from the user
 		while(true) {
 			System.out.print("> ");
