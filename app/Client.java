@@ -116,27 +116,24 @@ public class Client{
 		// depending of the number of arguments provided we fall through
 		switch(args.length) {
 			// > javac Client username portNumber serverAddr
-			case 3:
-				serverAddress = args[2];
-			// > javac Client username portNumber
 			case 2:
+				serverAddress = args[1];
+			// > javac Client username portNumber
+			case 1:
 				try {
-					portNumber = Integer.parseInt(args[1]);
+					portNumber = Integer.parseInt(args[0]);
 				}
 				catch(Exception e) {
 					System.out.println("Invalid port number.");
-					System.out.println("Usage is: > java Client [username] [portNumber] [serverAddress]");
+					System.out.println("Usage is: > java Client [portNumber] [serverAddress]");
 					return;
 				}
-			// > javac Client username
-			case 1:
-				userName = args[0];
 			// > java Client
 			case 0:
 				break;
 			// invalid number of arguments
 			default:
-				System.out.println("Usage is: > java Client [username] [portNumber] {serverAddress]");
+				System.out.println("Usage is: > java Client [portNumber] [serverAddress]");
 			return;
 		}
 		// wait for messages from user
