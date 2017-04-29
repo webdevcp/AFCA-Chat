@@ -186,9 +186,9 @@ public class Client{
 		public void run() {
 			while(true) {
 				try {
-					String msg = (String) sInput.readObject();
+					Message msg = (Message) sInput.readObject();
 					// if console mode print the message and add back the prompt
-						System.out.println(msg);
+						System.out.println(msg.getContent());
 						System.out.print("> ");
 				}
 				catch(IOException e) {

@@ -15,6 +15,10 @@ public class TextMessage extends Message implements Serializable {
         status = NOTSENT;
     }
 
+    TextMessage(String content){
+        this.content = content;
+    }
+
     //getters
     @Override
     public String getContent() {

@@ -114,7 +114,7 @@ public class Server {
 		for(int i = al.size(); --i >= 0;) {
 			ClientThread ct = al.get(i);
 			// try to write to the Client if it fails remove it from the list
-			if(!ct.writeMsg(messageLf)) {
+			if(!ct.writeMsg(new TextMessage(messageLf))) {
 				al.remove(i);
 				display("Disconnected Client " + ct.username + " removed from list.");
 			}
@@ -221,7 +221,7 @@ public class Server {
 				} catch (ClassNotFoundException e2) {
 					break;
 				}
-				// the messaage part of the ChatMessage
+				// the messaage part of the TextMessage
 				String message = (String) cm.getContent();
 				if (cm instanceof TextMessage) {
 					broadcast(username + ": " + message);
@@ -231,11 +231,11 @@ public class Server {
 						keepGoing = false;
 						break;
 					} else if (message.equalsIgnoreCase("WHOISHERE")) {
-						writeMsg("These are all the users currently in the lobby at " + sdf.format(new Date()) + "\n");
+						writeMsg(new TextMessage("These are all the users currently in the lobby at " + sdf.format(new Date()) + "\n"));
 						// scan al the users connected
 						for (int i = 0; i < al.size(); ++i) {
 							ClientThread ct = al.get(i);
-							writeMsg((i + 1) + ") " + ct.username + " since " + ct.date);
+							writeMsg(new TextMessage(""+(i + 1) + ") " + ct.username + " since " + ct.date));
 						}
 						break;
 					}
@@ -244,8 +244,9 @@ public class Server {
 				// connected Clients
 
 				remove(id);
-				close();
+
 			}
+			close();
 			}
 
 		// try to close everything
@@ -268,7 +269,7 @@ public class Server {
 		/*
 		 * Write a String to the Client output stream
 		 */
-		private boolean writeMsg(String msg) {
+		private boolean writeMsg(Message msg) {
 			// if Client is still connected send the message to it
 			if(!socket.isConnected()) {
 				close();
