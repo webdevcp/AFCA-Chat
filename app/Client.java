@@ -1,4 +1,4 @@
-// With help from http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/
+// Class adapted from http://www.dreamincode.net/forums/topic/259777-a-simple-chat-program-with-clientserver-gui-optional/
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -152,7 +152,7 @@ public class Client{
 		if(!client.start())
 			return;
 
-			
+
 
 		// loop forever for message from the user
 		while(true) {
@@ -192,7 +192,7 @@ public class Client{
 						System.out.print("> ");
 				}
 				catch(IOException e) {
-					display("Server has close the connection: " + e);
+					display("Server has closed the connection: " + e);
 					break;
 				}
 				// can't happen with a String object but need the catch anyhow
