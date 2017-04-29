@@ -180,6 +180,8 @@ public class Server {
 		// the date I connect
 		String date;
 
+		Person user;
+
 		// Constructore
 		ClientThread(Socket socket) {
 			// a unique id
@@ -194,7 +196,8 @@ public class Server {
 				sInput  = new ObjectInputStream(socket.getInputStream());
 				// read the username
 				username = (String) sInput.readObject();
-				display(username + " just connected.");
+				user = new Person(username);
+				display(user.username + " just connected.");
 			}
 			catch (IOException e) {
 				display("Exception creating new Input/output Streams: " + e);
@@ -216,7 +219,7 @@ public class Server {
 				try {
 					cm = (Message) sInput.readObject();
 				} catch (IOException e) {
-					display(username + " Exception reading Streams: " + e);
+					display(user.username + " Exception reading Streams: " + e);
 					break;
 				} catch (ClassNotFoundException e2) {
 					break;
@@ -224,10 +227,10 @@ public class Server {
 				// the messaage part of the TextMessage
 				String message = (String) cm.getContent();
 				if (cm instanceof TextMessage) {
-					broadcast(username + ": " + message);
+					broadcast(user.username + ": " + message);
 				} else if (cm instanceof BehindTheScenesMessage) {
 					if (message.equalsIgnoreCase("LOGOUT")) {
-						display(username + " has left the lobby. Wish them a safe journey.");
+						display(user.username + " has left the lobby. Wish them a safe journey.");
 						keepGoing = false;
 						break;
 					} else if (message.equalsIgnoreCase("WHOISHERE")) {
@@ -281,7 +284,7 @@ public class Server {
 			}
 			// if an error occurs, do not abort just inform the user
 			catch(IOException e) {
-				display("Error sending message to " + username);
+				display("Error sending message to " + user.username);
 				display(e.toString());
 			}
 			return true;

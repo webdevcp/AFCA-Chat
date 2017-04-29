@@ -3,6 +3,9 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
 public class Client{
 
 	// for I/O
@@ -12,15 +15,17 @@ public class Client{
 	private static Person person;
 
 	// the server, the port and the username
-	private String server, username;
+	private String server;
 	private int port;
+
+
+	public static GUI mainGUI;
 
 	// Constructor
 	Client(String server, int port, String username) {
 		this.server = server;
 		this.port = port;
-		this.username = username;
-		this.person = new Person();
+		this.person = new Person(username);
 	}
 
 	/*
@@ -57,7 +62,7 @@ public class Client{
 		// will send as a String. All other messages will be Message objects
 		try
 		{
-			sOutput.writeObject(username);
+			sOutput.writeObject(person.username);
 		}
 		catch (IOException eIO) {
 			display("Exception doing login : " + eIO);
@@ -108,6 +113,20 @@ public class Client{
 	}
 
 	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager
+                            .getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mainGUI = new GUI();
+                mainGUI.login();
+            }
+        });
+
 		// default values
 		int portNumber = 1500;
 		String serverAddress = "localhost";
