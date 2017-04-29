@@ -175,7 +175,7 @@ public class Server {
 		// the Username of the Client
 		String username;
 		// the only type of message a will receive
-		ChatMessage cm;
+		Message cm;
 		// the date I connect
 		String date;
 
@@ -213,43 +213,39 @@ public class Server {
 			while(keepGoing) {
 				// read a String (which is an object)
 				try {
-					cm = (ChatMessage) sInput.readObject();
-				}
-				catch (IOException e) {
+					cm = (Message) sInput.readObject();
+				} catch (IOException e) {
 					display(username + " Exception reading Streams: " + e);
-					break;				
-				}
-				catch(ClassNotFoundException e2) {
+					break;
+				} catch (ClassNotFoundException e2) {
 					break;
 				}
 				// the messaage part of the ChatMessage
-				String message = cm.getMessage();
-
-				// Switch on the type of message receive
-				switch(cm.getType()) {
-
-				case ChatMessage.MESSAGE:
+				String message = (String) cm.getContent();
+				if (cm instanceof TextMessage) {
 					broadcast(username + ": " + message);
-					break;
-				case ChatMessage.LOGOUT:
-					display(username + " disconnected with a LOGOUT message.");
-					keepGoing = false;
-					break;
-				case ChatMessage.WHOISIN:
-					writeMsg("List of the users connected at " + sdf.format(new Date()) + "\n");
-					// scan al the users connected
-					for(int i = 0; i < al.size(); ++i) {
-						ClientThread ct = al.get(i);
-						writeMsg((i+1) + ") " + ct.username + " since " + ct.date);
+				} else if (cm instanceof BehindTheScenesMessage) {
+					if (message.equalsIgnoreCase("LOGOUT")) {
+						display(username + " has left the lobby. Wish them a safe journey.");
+						keepGoing = false;
+						break;
+					} else if (message.equalsIgnoreCase("WHOISHERE")) {
+						writeMsg("These are all the users currently in the lobby at " + sdf.format(new Date()) + "\n");
+						// scan al the users connected
+						for (int i = 0; i < al.size(); ++i) {
+							ClientThread ct = al.get(i);
+							writeMsg((i + 1) + ") " + ct.username + " since " + ct.date);
+						}
+						break;
 					}
-					break;
 				}
+				// remove myself from the arrayList containing the list of the
+				// connected Clients
+
+				remove(id);
+				close();
 			}
-			// remove myself from the arrayList containing the list of the
-			// connected Clients
-			remove(id);
-			close();
-		}
+			}
 		
 		// try to close everything
 		private void close() {
