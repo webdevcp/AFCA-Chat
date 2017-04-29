@@ -134,29 +134,14 @@ public class Server {
 		}
 	}
 
-	/*
-	 *  To run as a console application just open a console window and:
-	 * > java Server
-	 * > java Server portNumber
-	 * If the port number is not specified 1500 is used
-	 */
+
 	public static void main(String[] args) {
-		// start server on port 1500 unless a PortNumber is specified
 		int portNumber = 1500;
 		switch(args.length) {
-			case 1:
-				try {
-					portNumber = Integer.parseInt(args[0]);
-				}
-				catch(Exception e) {
-					System.out.println("Invalid port number.");
-					System.out.println("Usage is: > java Server [portNumber]");
-					return;
-				}
 			case 0:
 				break;
 			default:
-				System.out.println("Usage is: > java Server [portNumber]");
+				System.out.println("Usage is: > java Server");
 				return;
 
 		}
@@ -243,18 +228,12 @@ public class Server {
 						break;
 					}
 				}
-				// remove myself from the arrayList containing the list of the
-				// connected Clients
-
-				remove(id);
-
 			}
+			remove(id);
 			close();
 			}
 
-		// try to close everything
 		private void close() {
-			// try to close the connection
 			try {
 				if(sOutput != null) sOutput.close();
 			}
