@@ -225,7 +225,8 @@ public class Server {
 				String message = (String) cm.getContent();
 				if (cm instanceof TextMessage) {
 					broadcast(username + ": " + message);
-				} else if (cm instanceof BehindTheScenesMessage) {
+				}
+				else if (cm instanceof BehindTheScenesMessage) {
 					if (message.equalsIgnoreCase("LOGOUT")) {
 						display(username + " has left the lobby. Wish them a safe journey.");
 						keepGoing = false;
@@ -243,9 +244,10 @@ public class Server {
 				// remove myself from the arrayList containing the list of the
 				// connected Clients
 
-				remove(id);
+
 
 			}
+			remove(id);
 			close();
 			}
 
