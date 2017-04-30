@@ -18,9 +18,6 @@ public class Client{
 	private String server;
 	private int port;
 
-
-	public static GUI mainGUI;
-
 	// Constructor
 	Client(String server, int port, String username) {
 		this.server = server;
@@ -113,19 +110,6 @@ public class Client{
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager
-                            .getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                mainGUI = new GUI();
-                mainGUI.login();
-            }
-        });
 
 		// default values
 		int portNumber = 1500;
